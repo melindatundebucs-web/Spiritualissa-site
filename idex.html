@@ -1,11 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Spiritualissa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* Alap beállítások */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #34373a 0, #080807 45%, #050305 100%);
+      color: #f6f1e9;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* BAL OLDALI SÁV – fotó + menü */
+    .sidebar {
+      width: 210px;
+      background: linear-gradient(180deg, #080708 0, #15120f 45%, #0a0908 100%);
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .sidebar-header {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 18px;
+      background-color: #222;
+      background-size: cover;
+      background-position: center;
+      /* IDE FOGOD MAJD A SAJÁT FOTÓDAT TENNI (URL-el vagy később) */
+      /* Ha már most akarsz valamit, ezt lecserélheted pl.:
+         background-image: url("https://.../te-keped.jpg");
+      */
+    }
+
+    .sidebar-name {
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+    }
+
+    .sidebar-tagline {
+      font-size: 0.8rem;
+      color: #c6b9a0;
+      text-align: center;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      margin-top: 16px;
+    }
+
+    .sidebar-menu li {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .sidebar-link {
+      display: block;
+      padding: 10px 16px;
+      font-size: 0.92rem;
+      color: #f0e9db;
+      transition: background 0.18s, padding-left 0.18s;
+    }
+
+    .sidebar-link span {
+      font-size: 0.8rem;
+      opacity: 0.75;
+    }
+
+    .sidebar-link:hover {
+      background: rgba(255, 255, 255, 0.06);
+      padding-left: 22px;
+    }
+
+    /* JOBB OLDALI RÉSZ – fő tartalom */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Felső navigációs sáv */
+    .top-nav {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      background: rgba(8, 8, 7, 0.85);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .top-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.98rem;
+    }
+
+    .top-link {
+      position: relative;
+      letter-spacing: 0.04em;
+    }
+
+    .top-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #f4d57d, #ffb3c6);
+      transition: width 0.2s;
+    }
+
+    .top-link:hover::after {
+      width: 100%;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #f4d57d;
+    }
+
+    .cta-btn {
+      padding: 9px 20px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: #d9b1b9;
+      color: #2a1f1b;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(255, 207, 222, 0.35);
+      transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(255, 207, 222, 0.45);
+      background: #f0c4cc;
+    }
+
+    /* Fő tartalom doboz */
+    .content {
+      padding: 32px 48px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .hero-box {
+      background: rgba(5, 4, 7, 0.7);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 28px 32px 30px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.65);
+    }
+
+    .hero-title {
+      font-size: 2.4rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .hero-subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #d5ccb8;
+      margin-bottom: 26px;
+    }
+
+    /* Kártyahúzó gombok */
+    .draw-options {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .draw-btn {
+      border: 1px solid rgba(245, 210, 120, 0.8);
+      border-radius: 999px;
+      padding: 10px 26px;
+      font-size: 1rem;
+      color: #f6e7b6;
+      background: rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      text-shadow: 0 0 8px rgba(248, 221, 139, 0.8);
+      box-shadow: 0 0 25px rgba(246, 209, 117, 0.15);
+      transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+    }
+
+    .draw-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 222, 130, 0.08);
+      box-shadow: 0 0 32px rgba(246, 209, 117, 0.35);
+    }
+
+    .hero-note {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #b9b09a;
+      margin-top: 4px;
+    }
+
+    /* Guardian Angel sáv */
+    .angel-strip {
+      margin-top: 10px;
+      background: linear-gradient(90deg, #050406, #15100c, #050406);
+      border-radius: 18px;
+      padding: 18px 26px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .angel-main {
+      text-align: center;
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+
+    .angel-link {
+      text-align: center;
+      font-size: 0.98rem;
+      color: #f7dc7f;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      cursor: pointer;
+    }
+
+    .angel-link:hover {
+      color: #ffe89a;
+    }
+
+    /* Lábléc */
+    .footer {
+      margin-top: 12px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.8rem;
+      color: #a79c8a;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      color: #cdbfa6;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-size: 0.8rem;
+    }
+
+    /* Reszponzív – kisebb kijelzőknél */
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        padding: 8px 12px;
+        overflow-x: auto;
+      }
+
+      .sidebar-header {
+        flex-direction: row;
+        gap: 12px;
+        border-bottom: none;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        padding-right: 16px;
+        margin-right: 12px;
+      }
+
+      .sidebar-photo {
+        width: 72px;
+        height: 72px;
+      }
+
+      .sidebar-menu {
+        display: flex;
+        margin-top: 0;
+      }
+
+      .sidebar-menu li {
+        border-bottom: none;
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .sidebar-link {
+        white-space: nowrap;
+        padding: 8px 14px;
+      }
+
+      .main {
+        width: 100%;
+      }
+
+      .top-nav {
+        padding: 0 16px;
+      }
+
+      .content {
+        padding: 18px 16px 24px;
+      }
+
+      .hero-title {
+        font-size: 1.8rem;
+      }
+
+      .draw-options {
+        gap: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Spiritualissa</h1>
-  <p>This site is coming soon ✨</p>
+  <!-- BAL OLDALI PROFIL + MENÜ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-photo"></div>
+      <div>
+        <div class="sidebar-name">Spiritualissa</div>
+        <div class="sidebar-tagline">Angel guidance • Rituals • Tarot</div>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li><a href="#love-ritual" class="sidebar-link">Love Ritual</a></li>
+      <li><a href="#money-ritual" class="sidebar-link">Money Ritual</a></li>
+      <li><a href="#new-moon" class="sidebar-link"><span>New Moon</span><br />Ritual</a></li>
+      <li><a href="#full-moon" class="sidebar-link"><span>Full Moon</span><br />Wealth Ritual</a></li>
+      <li><a href="#money-talisman" class="sidebar-link">Money Talismans</a></li>
+      <li><a href="#love-talisman" class="sidebar-link">Love Talismans</a></li>
+      <li><a href="#protection" class="sidebar-link">Protection Talismans</a></li>
+      <li><a href="#articles" class="sidebar-link">Articles</a></li>
+    </ul>
+  </aside>
+
+  <!-- JOBB OLDAL – FŐ TARTALOM -->
+  <div class="main">
+    <!-- FELSŐ NAVIGÁCIÓ -->
+    <header class="top-nav">
+      <div class="brand">SPIRITUALISSA</div>
+      <nav class="top-links">
+        <a href="#readings" class="top-link">Readings</a>
+        <a href="#about" class="top-link">About</a>
+        <a href="#contact" class="top-link">Contact</a>
+      </nav>
+      <button class="cta-btn">Get Insight</button>
+    </header>
+
+    <!-- TARTALMI BLOKK -->
+    <main class="content">
+      <section class="hero-box" id="readings">
+        <h1 class="hero-title">Spiritualissa&rsquo;s predictions box</h1>
+        <p class="hero-subtitle">
+          Choose how many cards your angels reveal today. This is your sacred moment
+          &mdash; take a breath, set your intention, and tap into the light.
+        </p>
+
+        <div class="draw-options">
+          <button class="draw-btn">Draw 1 card</button>
+          <button class="draw-btn">Draw 3 cards</button>
+          <button class="draw-btn">Draw 12 cards</button>
+        </div>
+
+        <p class="hero-note">
+          (Soon these buttons will open your free automatic readings. ✨)
+        </p>
+
+        <div class="angel-strip">
+          <div class="angel-main">
+            Your Guardian Angel wants to send a message.
+          </div>
+          <div class="angel-link">
+            Click for your personal Angel Message
+          </div>
+        </div>
+
+        <div class="footer">
+          <div>© <span id="year"></span> Spiritualissa. All rights reserved.</div>
+          <div>
+            <a href="#about">About Spiritualissa</a> ·
+            <a href="#contact">Book a private reading</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // csak az év frissítésére
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
