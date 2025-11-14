@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    /* ====== RESET / ALAP ====== */
+    /* ===== Alap beállítások ===== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -14,284 +14,327 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #f6eafc;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      color: #fbead9;
       /* misztikus háttér – lila, éjszakai ég hangulat */
       background:
-        radial-gradient(circle at 10% 10%, #4e3b8f 0%, transparent 60%),
-        radial-gradient(circle at 80% 20%, #aa7bd9 0%, transparent 55%),
-        radial-gradient(circle at 50% 100%, #3b1f5f 0%, #12061f 80%);
-        min-height: 100vh;
+        radial-gradient(circle at 10% 10%, #4e3b8f 0, transparent 60%),
+        radial-gradient(circle at 80% 20%, #aa7bd9 0, transparent 55%),
+        radial-gradient(circle at 50% 100%, #3b1f5f 0, #050308 80%);
+      min-height: 100vh;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* ====== FELSŐ NAVBAR ====== */
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 32px;
-      background: linear-gradient(to right, rgba(10, 6, 18, 0.95), rgba(18, 12, 31, 0.95));
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .brand {
-      font-size: 1.3rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #f7e6c6;
-      font-weight: 600;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      font-size: 0.98rem;
-      color: #f5eafc;
-    }
-
-    .nav-links a {
-      opacity: 0.9;
-    }
-
-    .nav-links a:hover {
-      opacity: 1;
-      text-shadow: 0 0 8px rgba(255, 233, 180, 0.6);
-    }
-
-    .btn-ghost {
-      padding: 9px 20px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 239, 205, 0.8);
-      color: #140b1f;
-      background: radial-gradient(circle at 30% 0, #ffe7c0, #e2a86a);
-      font-weight: 600;
-      box-shadow: 0 0 18px rgba(255, 208, 128, 0.4);
-    }
-
-    .btn-ghost:hover {
-      filter: brightness(1.05);
-      box-shadow: 0 0 24px rgba(255, 221, 153, 0.9);
-    }
-
-    /* ====== OLDAL ELRENDEZÉS ====== */
+    /* ===== Oldal struktúra ===== */
 
     .page {
       display: flex;
-      max-width: 1200px;
-      margin: 32px auto 40px;
-      padding: 0 16px 32px;
-      gap: 28px;
+      min-height: 100vh;
+      position: relative;
+      z-index: 0;
     }
 
-    /* ====== BAL OLDALI MENÜ ====== */
+    /* háttér-vízjel a központi részhez */
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("logo-mark.png");
+      background-repeat: repeat;
+      background-size: 260px 260px;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* ===== Bal oldali sáv ===== */
 
     .sidebar {
-      width: 260px;
-      background: radial-gradient(circle at 0 0, #2a1b3e 0, #110813 60%);
-      border-radius: 22px;
-      padding: 20px 18px 22px;
-      box-shadow:
-        0 0 40px rgba(0, 0, 0, 0.7),
-        0 0 60px rgba(110, 78, 170, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .profile {
+      width: 280px;
+      padding: 32px 24px;
+      background: radial-gradient(circle at top, #452a66 0, #120716 65%, #050308);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 26px;
     }
 
     .profile-photo {
-      width: 120px;
-      height: 120px;
+      width: 170px;
+      height: 170px;
       border-radius: 50%;
-      padding: 4px;
-      background: radial-gradient(circle at 30% 0, #ffe0b5, #c886ff);
-      box-shadow: 0 0 18px rgba(255, 228, 193, 0.7);
+      overflow: hidden;
+      border: 4px solid #f6c982;
+      box-shadow: 0 0 25px rgba(246, 201, 130, 0.45);
+      margin-bottom: 18px;
     }
 
-    .profile-img {
+    .profile-photo img {
       width: 100%;
       height: 100%;
-      border-radius: 50%;
       object-fit: cover;
-      display: block;
     }
 
     .profile-name {
-      font-weight: 600;
-      letter-spacing: 0.06em;
+      font-size: 20px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      font-size: 0.96rem;
+      color: #f6c982;
+      text-align: center;
+      margin-bottom: 6px;
     }
 
     .profile-sub {
-      font-size: 0.82rem;
-      opacity: 0.85;
+      font-size: 13px;
+      color: #f8ddb5;
+      opacity: 0.9;
+      text-align: center;
+      margin-bottom: 32px;
     }
 
     .side-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-top: 10px;
+      width: 100%;
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .side-nav li {
+      margin-bottom: 14px;
     }
 
     .side-nav a {
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      color: #f4e9ff;
-      opacity: 0.86;
+      text-decoration: none;
+      font-size: 15px;
+      color: #f6c982;   /* ARANY BETŰK */
+      padding: 8px 4px;
+      display: block;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.15s;
     }
 
     .side-nav a:hover {
-      background: rgba(255, 231, 186, 0.12);
-      opacity: 1;
+      background: rgba(246, 201, 130, 0.08);
+      transform: translateX(3px);
     }
 
-    /* ====== JOBB OLDALI FŐ TARTALOM ====== */
+    /* ===== Fő tartalom ===== */
 
     .main {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      padding-bottom: 40px;
     }
 
-    .hero-box {
-      background: radial-gradient(circle at 50% 0, #301b3e 0, #150b1a 65%);
-      border-radius: 28px;
-      padding: 30px 32px 32px;
+    /* ===== Felső banner / navigáció ===== */
+
+    .top-bar {
+      background: linear-gradient(to right, #0b070f, #261134);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px 40px;
+    }
+
+    .top-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo img {
+      height: 46px;
+      width: auto;
+      display: block;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .main-nav a {
+      color: #f6c982;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .main-nav a:not(.nav-cta)::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: #f6c982;
+      transition: width 0.2s;
+    }
+
+    .main-nav a:not(.nav-cta):hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 8px 20px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f6c982, #f2b86d);
+      color: #3d2442;
+      font-weight: 600;
+      box-shadow: 0 0 18px rgba(246, 201, 130, 0.45);
+    }
+
+    .nav-cta:hover {
+      filter: brightness(1.05);
+    }
+
+    /* ===== Fő tartalomdoboz ===== */
+
+    .content {
+      max-width: 1100px;
+      margin: 30px auto 0;
+      padding: 0 32px;
+    }
+
+    .box {
+      background: radial-gradient(circle at top, rgba(19, 10, 30, 0.95), rgba(7, 3, 12, 0.98));
+      border-radius: 26px;
+      padding: 40px 40px 36px;
       box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.9),
-        0 0 45px rgba(118, 84, 191, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.04);
+        0 25px 60px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.03);
+      margin-bottom: 28px;
     }
 
-    .hero-title {
-      font-size: 2.3rem;
-      font-weight: 700;
+    .box-title {
+      font-size: 40px;
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 18px;
+      letter-spacing: 0.06em;
     }
 
-    .hero-sub {
+    .box-title span {
+      color: #f6c982;
+    }
+
+    .box-lead {
+      font-size: 17px;
       text-align: center;
-      font-size: 0.98rem;
+      line-height: 1.6;
       max-width: 720px;
-      margin: 0 auto 28px;
-      opacity: 0.9;
-      line-height: 1.5;
+      margin: 0 auto 32px;
+      color: #f7e9d3;
     }
 
-    .draw-buttons {
+    .card-buttons {
       display: flex;
       justify-content: center;
-      gap: 24px;
-      margin-bottom: 12px;
+      gap: 26px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
     }
 
-    .draw-btn {
-      min-width: 150px;
-      padding: 12px 24px;
+    .card-button {
+      padding: 15px 36px;
       border-radius: 999px;
       border: none;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #140915;
       cursor: pointer;
-      background: radial-gradient(circle at 30% 0, #ffeabf, #e0aa63);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: none;
+      background: radial-gradient(circle at 30% 0%, #ffe4b0 0, #f2b86d 40%, #e08c43 100%);
+      color: #3d2442;
       box-shadow:
-        0 0 20px rgba(255, 220, 150, 0.75),
-        0 0 40px rgba(255, 214, 137, 0.35);
-      transition: transform 0.08s ease, box-shadow 0.08s ease;
+        0 12px 32px rgba(0, 0, 0, 0.6),
+        0 0 18px rgba(246, 201, 130, 0.7);
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
     }
 
-    .draw-btn:hover {
-      transform: translateY(-1px);
+    .card-button:hover {
+      transform: translateY(-2px);
       box-shadow:
-        0 0 24px rgba(255, 227, 171, 0.9),
-        0 0 40px rgba(255, 235, 195, 0.7);
+        0 16px 40px rgba(0, 0, 0, 0.75),
+        0 0 24px rgba(246, 201, 130, 0.85);
     }
 
-    .hero-note {
+    .card-button:active {
+      transform: translateY(1px);
+      box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.65),
+        0 0 16px rgba(246, 201, 130, 0.7);
+    }
+
+    .soon-note {
+      font-size: 14px;
       text-align: center;
-      font-size: 0.85rem;
-      opacity: 0.8;
+      color: #f6ddb6;
+      opacity: 0.9;
     }
 
-    .guardian-box {
-      background: linear-gradient(
-        to right,
-        rgba(47, 27, 61, 0.95),
-        rgba(24, 18, 40, 0.98)
-      );
-      border-radius: 24px;
-      padding: 22px 26px;
-      margin-top: 8px;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.04);
+    .soon-note span {
+      margin-left: 4px;
     }
 
-    .guardian-title {
+    /* ===== Guardian Angel box ===== */
+
+    .angel-box-title {
+      font-size: 22px;
       text-align: center;
-      font-size: 1.1rem;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
-    .guardian-link {
+    .angel-link {
       text-align: center;
-      font-size: 0.98rem;
-      color: #ffd88b;
+      font-size: 18px;
     }
 
-    .guardian-link a {
-      color: #ffd88b;
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
+    .angel-link a {
+      color: #f6c982;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(246, 201, 130, 0.65);
+      padding-bottom: 2px;
     }
 
-    .guardian-link a:hover {
-      text-shadow: 0 0 12px rgba(255, 222, 150, 0.9);
+    .angel-link a:hover {
+      border-bottom-color: rgba(246, 201, 130, 1);
     }
 
-    .footer-bar {
-      margin-top: 26px;
+    /* ===== Lábjegyzet ===== */
+
+    .footer {
+      margin-top: 10px;
+      font-size: 12px;
+      text-align: right;
+      color: rgba(248, 230, 207, 0.8);
       display: flex;
       justify-content: space-between;
-      gap: 10px;
-      font-size: 0.8rem;
-      opacity: 0.84;
+      gap: 12px;
+      align-items: center;
     }
 
-    .footer-links a {
-      color: #f4e6ff;
+    .footer a {
+      color: #f6c982;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
       text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-thickness: 1px;
     }
 
-    .footer-links a:hover {
-      text-shadow: 0 0 10px rgba(255, 228, 190, 0.9);
-    }
+    /* ===== Reszponzív ===== */
 
-    /* ====== MOBIL ====== */
     @media (max-width: 900px) {
       .page {
         flex-direction: column;
@@ -299,97 +342,143 @@
 
       .sidebar {
         width: 100%;
-        max-width: 420px;
-        margin: 0 auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+        padding: 20px;
+        overflow-x: auto;
       }
 
-      .hero-title {
-        font-size: 1.9rem;
+      .profile-photo {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 0;
       }
 
-      .topbar {
-        flex-direction: column;
-        gap: 10px;
+      .profile-name,
+      .profile-sub {
+        text-align: left;
+      }
+
+      .side-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin-top: 0;
+        margin-left: 20px;
+      }
+
+      .side-nav li {
+        margin-right: 14px;
+      }
+
+      .main {
+        padding-top: 0;
+      }
+
+      .top-bar {
+        padding: 10px 18px;
+      }
+
+      .content {
+        padding: 0 18px;
+      }
+
+      .box {
+        padding: 26px 20px 24px;
+      }
+
+      .box-title {
+        font-size: 30px;
       }
     }
   </style>
 </head>
-
 <body>
-  <!-- FELSŐ SÁV -->
-  <header class="topbar">
-    <div class="brand">SPIRITUALISSA</div>
-
-    <nav class="nav-links">
-      <a href="#">Readings</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-      <a href="#" class="btn-ghost">Get Insight</a>
-    </nav>
-  </header>
-
-  <main class="page">
-    <!-- BAL OLDALI MENÜ -->
+  <div class="page">
+    <!-- ===== Bal oldali profil + menü ===== -->
     <aside class="sidebar">
-      <div class="profile">
-        <div class="profile-photo">
-          <!-- EZ A TE FÉNYKÉPED – GITHUB-ON alissa.jpg néven -->
-          <img src="alissa.jpg" alt="Spiritualissa" class="profile-img" />
-        </div>
-        <div class="profile-name">Spiritualissa</div>
-        <div class="profile-sub">Angel guidance • Rituals • Tarot</div>
+      <div class="profile-photo">
+        <img src="alissa.jpg" alt="Spiritualissa portrait" />
       </div>
+      <div>
+        <div class="profile-name">SPIRITUALISSA</div>
+        <div class="profile-sub">Angel guidance • Rituals • Tarot</div>
 
-      <nav class="side-nav">
-        <a href="#">Love Ritual</a>
-        <a href="#">Money Ritual</a>
-        <a href="#">New Moon Ritual</a>
-        <a href="#">Full Moon Wealth Ritual</a>
-        <a href="#">Money Talismans</a>
-        <a href="#">Love Talismans</a>
-        <a href="#">Protection Talismans</a>
-        <a href="#">Articles</a>
-      </nav>
+        <ul class="side-nav">
+          <li><a href="#">Love Ritual</a></li>
+          <li><a href="#">Money Ritual</a></li>
+          <li><a href="#">New Moon Ritual</a></li>
+          <li><a href="#">Full Moon Wealth Ritual</a></li>
+          <li><a href="#">Money Talismans</a></li>
+          <li><a href="#">Love Talismans</a></li>
+          <li><a href="#">Protection Talismans</a></li>
+          <li><a href="#">Articles</a></li>
+        </ul>
+      </div>
     </aside>
 
-    <!-- JOBB OLDALI FŐ RÉSZ -->
-    <section class="main">
-      <section class="hero-box">
-        <h1 class="hero-title">Spiritualissa’s predictions box</h1>
-        <p class="hero-sub">
-          Choose how many cards your angels reveal today. This is your sacred
-          moment — take a breath, set your intention, and tap into the light.
-        </p>
-
-        <div class="draw-buttons">
-          <button class="draw-btn">Draw 1 card</button>
-          <button class="draw-btn">Draw 3 cards</button>
-          <button class="draw-btn">Draw 12 cards</button>
+    <!-- ===== Fő tartalom ===== -->
+    <main class="main">
+      <!-- Felső banner -->
+      <header class="top-bar">
+        <div class="top-bar-inner">
+          <div class="brand-logo">
+            <img src="logo-watermark.png" alt="Spiritualissa logo" />
+          </div>
+          <nav class="main-nav">
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">More</a>
+            <a href="#" class="nav-cta">Sign in</a>
+          </nav>
         </div>
+      </header>
 
-        <p class="hero-note">
-          (Soon these buttons will open your free automatic readings. ✨)
-        </p>
-      </section>
+      <div class="content">
+        <!-- Predictions box -->
+        <section class="box">
+          <h1 class="box-title">
+            <span>Spiritualissa’s</span> predictions box
+          </h1>
 
-      <section class="guardian-box">
-        <div class="guardian-title">
-          Your Guardian Angel wants to send a message.
-        </div>
-        <div class="guardian-link">
-          <a href="#">Click for your personal Angel Message</a>
-        </div>
-      </section>
+          <p class="box-lead">
+            Choose your cards. Focus on your question.
+            Breathe in, relax, and receive your message.
+          </p>
 
-      <div class="footer-bar">
-        <div>© 2025 Spiritualissa. All rights reserved.</div>
-        <div class="footer-links">
-          <a href="#">About Spiritualissa</a>
-          ·
-          <a href="#">Book a private reading</a>
-        </div>
+          <div class="card-buttons">
+            <button class="card-button">Draw 1 card</button>
+            <button class="card-button">Draw 3 cards</button>
+            <button class="card-button">Draw 10 cards</button>
+          </div>
+
+          <p class="soon-note">
+            (Soon these buttons will open your free automatic readings.
+            <span>✨</span>)
+          </p>
+        </section>
+
+        <!-- Guardian Angel box -->
+        <section class="box">
+          <h2 class="angel-box-title">
+            Your Guardian Angel wants to send a message.
+          </h2>
+          <p class="angel-link">
+            <a href="#">Click for your personal Angel Message</a>
+          </p>
+        </section>
+
+        <footer class="footer">
+          <span>© 2025 Spiritualissa. All rights reserved.</span>
+          <span>
+            <a href="#">About Spiritualissa</a> ·
+            <a href="#">Book a private reading</a>
+          </span>
+        </footer>
       </div>
-    </section>
-  </main>
+    </main>
+  </div>
 </body>
 </html>
