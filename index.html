@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <title>Spiritualissa – Angelic Guidance</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
-    /* Alap beállítások */
+    /* ====== RESET / ALAP ====== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -13,259 +14,284 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      color: #fcefd8;
-      /* Halvány angyalszárny-háttér + sötét overlay */
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f6eafc;
+      /* misztikus háttér – lila, éjszakai ég hangulat */
       background:
-        radial-gradient(circle at top, rgba(255, 255, 255, 0.45), transparent 60%),
-        radial-gradient(circle at bottom, rgba(255, 220, 160, 0.35), transparent 55%),
-        #050308
-        url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80")
-          center/cover fixed no-repeat;
+        radial-gradient(circle at 20% 0%, #433366 0, transparent 55%),
+        radial-gradient(circle at 80% 0%, #2f3a60 0, transparent 55%),
+        radial-gradient(circle at 50% 100%, #1a0f25 0, #050308 70%);
+      min-height: 100vh;
     }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ====== FELSŐ NAVBAR ====== */
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      background: linear-gradient(to right, rgba(10, 6, 18, 0.95), rgba(18, 12, 31, 0.95));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .brand {
+      font-size: 1.3rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #f7e6c6;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 0.98rem;
+      color: #f5eafc;
+    }
+
+    .nav-links a {
+      opacity: 0.9;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      text-shadow: 0 0 8px rgba(255, 233, 180, 0.6);
+    }
+
+    .btn-ghost {
+      padding: 9px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 239, 205, 0.8);
+      color: #140b1f;
+      background: radial-gradient(circle at 30% 0, #ffe7c0, #e2a86a);
+      font-weight: 600;
+      box-shadow: 0 0 18px rgba(255, 208, 128, 0.4);
+    }
+
+    .btn-ghost:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 0 24px rgba(255, 221, 153, 0.9);
+    }
+
+    /* ====== OLDAL ELRENDEZÉS ====== */
 
     .page {
-      min-height: 100vh;
       display: flex;
-      background: rgba(5, 3, 8, 0.9);
+      max-width: 1200px;
+      margin: 32px auto 40px;
+      padding: 0 16px 32px;
+      gap: 28px;
     }
 
-    /* Oldalsáv (bal oldal) */
+    /* ====== BAL OLDALI MENÜ ====== */
 
     .sidebar {
       width: 260px;
-      background: linear-gradient(180deg, #080509 0%, #050308 60%, #050308 100%);
-      padding: 24px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      background: radial-gradient(circle at 0 0, #2a1b3e 0, #110813 60%);
+      border-radius: 22px;
+      padding: 20px 18px 22px;
+      box-shadow:
+        0 0 40px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(110, 78, 170, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.04);
     }
 
     .profile {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 26px;
     }
 
     .profile-photo {
       width: 120px;
       height: 120px;
-      border-radius: 18px;
-      background-color: #1a141f;
-      background-size: cover;
-      background-position: center;
-      box-shadow: 0 0 22px rgba(255, 255, 255, 0.18);
-      margin-bottom: 10px;
-      /* IDE JÖN MAJD A TE FOTÓD – ha feltöltöd alissa.jpg néven: */
-      background-image: url("alissa.jpg");
+      border-radius: 50%;
+      padding: 4px;
+      background: radial-gradient(circle at 30% 0, #ffe0b5, #c886ff);
+      box-shadow: 0 0 18px rgba(255, 228, 193, 0.7);
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
     }
 
     .profile-name {
-      font-size: 20px;
-      letter-spacing: 0.08em;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #fcefd8;
+      font-size: 0.96rem;
     }
 
     .profile-sub {
-      font-size: 13px;
-      color: rgba(249, 236, 205, 0.7);
+      font-size: 0.82rem;
+      opacity: 0.85;
     }
 
     .side-nav {
       display: flex;
       flex-direction: column;
       gap: 4px;
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .side-nav a {
-      display: block;
-      padding: 11px 10px;
-      font-size: 15px;
-      color: #f6e4c3;
-      text-decoration: none;
-      border-radius: 6px;
-      background: transparent;
-      border: 1px solid transparent;
-      transition: 0.2s ease;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      color: #f4e9ff;
+      opacity: 0.86;
     }
 
     .side-nav a:hover {
-      border-color: rgba(255, 230, 180, 0.4);
-      background: radial-gradient(circle at left, rgba(255, 216, 145, 0.18), transparent);
-      padding-left: 14px;
+      background: rgba(255, 231, 186, 0.12);
+      opacity: 1;
     }
 
-    .side-nav a + a {
-      border-top: 1px solid rgba(255, 255, 255, 0.03);
-    }
+    /* ====== JOBB OLDALI FŐ TARTALOM ====== */
 
-    /* Fő tartalom (jobb oldal) */
-
-    .content {
+    .main {
       flex: 1;
-      padding: 24px 40px 32px;
       display: flex;
       flex-direction: column;
       gap: 24px;
     }
 
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
+    .hero-box {
+      background: radial-gradient(circle at 50% 0, #301b3e 0, #150b1a 65%);
+      border-radius: 28px;
+      padding: 30px 32px 32px;
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.9),
+        0 0 45px rgba(118, 84, 191, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.04);
     }
 
-    .logo-word {
-      font-size: 20px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #fbe2a9;
-    }
-
-    .top-nav {
-      display: flex;
-      gap: 24px;
-      font-size: 15px;
-    }
-
-    .top-nav a {
-      color: #fcefd8;
-      text-decoration: none;
-      opacity: 0.8;
-      transition: 0.2s;
-    }
-
-    .top-nav a:hover {
-      opacity: 1;
-    }
-
-    .cta {
-      padding: 10px 20px;
-      border-radius: 999px;
-      background: #f4c2c4;
-      color: #2b1418;
-      font-weight: 600;
-      text-decoration: none;
-      box-shadow: 0 0 18px rgba(255, 192, 203, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-    }
-
-    /* Predictions box */
-
-    .predictions-card {
-      margin-top: 10px;
-      padding: 40px 48px 36px;
-      border-radius: 32px;
-      background: radial-gradient(circle at top, #22121b, #050308);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75);
-      border: 1px solid rgba(255, 235, 200, 0.18);
-    }
-
-    .predictions-title {
-      font-size: 40px;
+    .hero-title {
+      font-size: 2.3rem;
+      font-weight: 700;
       text-align: center;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
-    .predictions-sub {
-      font-size: 17px;
+    .hero-sub {
       text-align: center;
-      max-width: 780px;
-      margin: 0 auto 30px;
-      color: rgba(252, 239, 216, 0.9);
+      font-size: 0.98rem;
+      max-width: 720px;
+      margin: 0 auto 28px;
+      opacity: 0.9;
+      line-height: 1.5;
     }
 
-    .prediction-buttons {
+    .draw-buttons {
       display: flex;
       justify-content: center;
-      gap: 32px;
-      margin-bottom: 10px;
+      gap: 24px;
+      margin-bottom: 12px;
       flex-wrap: wrap;
     }
 
-    .pill-button {
+    .draw-btn {
       min-width: 150px;
-      padding: 12px 28px;
+      padding: 12px 24px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 237, 190, 0.7);
-      background: radial-gradient(circle at top, #3b2a19, #151010);
-      color: #ffecc0;
-      font-size: 16px;
+      border: none;
+      font-size: 1rem;
       font-weight: 600;
+      color: #140915;
       cursor: pointer;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(255, 227, 160, 0.4);
-      transition: 0.2s ease;
+      background: radial-gradient(circle at 30% 0, #ffeabf, #e0aa63);
+      box-shadow:
+        0 0 20px rgba(255, 220, 150, 0.75),
+        0 0 40px rgba(255, 214, 137, 0.35);
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
     }
 
-    .pill-button:hover {
+    .draw-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 0 26px rgba(255, 234, 185, 0.7);
+      box-shadow:
+        0 0 24px rgba(255, 227, 171, 0.9),
+        0 0 40px rgba(255, 235, 195, 0.7);
     }
 
-    .soon-text {
+    .hero-note {
       text-align: center;
-      font-size: 13px;
-      margin-top: 4px;
-      color: rgba(252, 239, 216, 0.7);
+      font-size: 0.85rem;
+      opacity: 0.8;
     }
-
-    /* Guardian Angel box */
 
     .guardian-box {
-      margin-top: 22px;
-      padding: 22px 28px;
-      border-radius: 20px;
-      background: radial-gradient(circle at center, #22121b, #070509);
-      border: 1px solid rgba(255, 236, 200, 0.2);
+      background: linear-gradient(
+        to right,
+        rgba(47, 27, 61, 0.95),
+        rgba(24, 18, 40, 0.98)
+      );
+      border-radius: 24px;
+      padding: 22px 26px;
+      margin-top: 8px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.04);
     }
 
     .guardian-title {
       text-align: center;
-      font-size: 20px;
+      font-size: 1.1rem;
       margin-bottom: 8px;
     }
 
     .guardian-link {
-      display: block;
       text-align: center;
-      font-size: 16px;
-      color: #ffd978;
-      text-decoration: none;
-      text-shadow: 0 0 12px rgba(255, 218, 120, 0.6);
+      font-size: 0.98rem;
+      color: #ffd88b;
     }
 
-    .guardian-link:hover {
+    .guardian-link a {
+      color: #ffd88b;
       text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
     }
 
-    /* Lábléc */
+    .guardian-link a:hover {
+      text-shadow: 0 0 12px rgba(255, 222, 150, 0.9);
+    }
 
-    .footer {
-      margin-top: 30px;
+    .footer-bar {
+      margin-top: 26px;
       display: flex;
       justify-content: space-between;
-      font-size: 13px;
-      color: rgba(252, 239, 216, 0.65);
+      gap: 10px;
+      font-size: 0.8rem;
+      opacity: 0.84;
     }
 
-    .footer a {
-      color: rgba(252, 239, 216, 0.8);
-      text-decoration: none;
-    }
-
-    .footer a:hover {
+    .footer-links a {
+      color: #f4e6ff;
       text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
     }
 
-    /* Mobilra */
+    .footer-links a:hover {
+      text-shadow: 0 0 10px rgba(255, 228, 190, 0.9);
+    }
 
+    /* ====== MOBIL ====== */
     @media (max-width: 900px) {
       .page {
         flex-direction: column;
@@ -273,62 +299,45 @@
 
       .sidebar {
         width: 100%;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        overflow-x: auto;
+        max-width: 420px;
+        margin: 0 auto;
       }
 
-      .profile {
-        flex-direction: row;
-        align-items: center;
-        gap: 16px;
+      .hero-title {
+        font-size: 1.9rem;
       }
 
-      .side-nav {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        margin-left: 20px;
-      }
-
-      .side-nav a {
-        white-space: nowrap;
-        border-top: none;
-      }
-
-      .content {
-        padding: 20px;
-      }
-
-      .predictions-card {
-        padding: 28px 20px 26px;
-      }
-
-      .predictions-title {
-        font-size: 30px;
-      }
-
-      .prediction-buttons {
-        gap: 16px;
-      }
-
-      .footer {
+      .topbar {
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
       }
     }
   </style>
 </head>
+
 <body>
-  <div class="page">
+  <!-- FELSŐ SÁV -->
+  <header class="topbar">
+    <div class="brand">SPIRITUALISSA</div>
+
+    <nav class="nav-links">
+      <a href="#">Readings</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#" class="btn-ghost">Get Insight</a>
+    </nav>
+  </header>
+
+  <main class="page">
     <!-- BAL OLDALI MENÜ -->
     <aside class="sidebar">
       <div class="profile">
-        <div class="profile-photo"></div>
-        <div>
-          <div class="profile-name">Spiritualissa</div>
-          <div class="profile-sub">Angel guidance • Rituals • Tarot</div>
+        <div class="profile-photo">
+          <!-- EZ A TE FÉNYKÉPED – GITHUB-ON alissa.jpg néven -->
+          <img src="alissa.jpg" alt="Spiritualissa" class="profile-img" />
         </div>
+        <div class="profile-name">Spiritualissa</div>
+        <div class="profile-sub">Angel guidance • Rituals • Tarot</div>
       </div>
 
       <nav class="side-nav">
@@ -343,59 +352,44 @@
       </nav>
     </aside>
 
-    <!-- JOBB OLDAL / TARTALOM -->
-    <main class="content">
-      <!-- Felső sáv -->
-      <header class="topbar">
-        <div class="logo-word">SPIRITUALISSA</div>
-
-        <nav class="top-nav">
-          <a href="#">Readings</a>
-          <a href="#">About</a>
-          <a href="#">Contact</a>
-        </nav>
-
-        <a href="#" class="cta">GET INSIGHT</a>
-      </header>
-
-      <!-- Predictions box -->
-      <section class="predictions-card">
-        <h1 class="predictions-title">Spiritualissa’s predictions box</h1>
-        <p class="predictions-sub">
+    <!-- JOBB OLDALI FŐ RÉSZ -->
+    <section class="main">
+      <section class="hero-box">
+        <h1 class="hero-title">Spiritualissa’s predictions box</h1>
+        <p class="hero-sub">
           Choose how many cards your angels reveal today. This is your sacred
           moment — take a breath, set your intention, and tap into the light.
         </p>
 
-        <div class="prediction-buttons">
-          <button class="pill-button">Draw 1 card</button>
-          <button class="pill-button">Draw 3 cards</button>
-          <button class="pill-button">Draw 12 cards</button>
+        <div class="draw-buttons">
+          <button class="draw-btn">Draw 1 card</button>
+          <button class="draw-btn">Draw 3 cards</button>
+          <button class="draw-btn">Draw 12 cards</button>
         </div>
-        <p class="soon-text">
+
+        <p class="hero-note">
           (Soon these buttons will open your free automatic readings. ✨)
         </p>
       </section>
 
-      <!-- Guardian Angel üzenet box -->
       <section class="guardian-box">
         <div class="guardian-title">
           Your Guardian Angel wants to send a message.
         </div>
-        <a href="#" class="guardian-link">
-          Click for your personal Angel Message
-        </a>
+        <div class="guardian-link">
+          <a href="#">Click for your personal Angel Message</a>
+        </div>
       </section>
 
-      <!-- Lábléc -->
-      <footer class="footer">
+      <div class="footer-bar">
         <div>© 2025 Spiritualissa. All rights reserved.</div>
-        <div>
+        <div class="footer-links">
           <a href="#">About Spiritualissa</a>
           ·
           <a href="#">Book a private reading</a>
         </div>
-      </footer>
-    </main>
-  </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
